@@ -1,4 +1,3 @@
-import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./auth/AuthProvider";
 import ProtectedRoute from "./auth/ProtectedRoute";
@@ -11,11 +10,14 @@ export default function App() {
     <BrowserRouter>
       <AuthProvider>
         <Routes>
+          {/* Default route */}
           <Route path="/" element={<Navigate to="/dashboard" replace />} />
 
+          {/* Public routes */}
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
 
+          {/* Protected route */}
           <Route
             path="/dashboard"
             element={
@@ -25,7 +27,8 @@ export default function App() {
             }
           />
 
-          <Route path="*" element={<div style={{ padding: 16 }}>404</div>} />
+          {/* Catch-all fallback */}
+          <Route path="*" element={<Navigate to="/dashboard" replace />} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>
